@@ -39,6 +39,7 @@
 
 ```bash
 cd admin
+yarn
 yarn dev
 ```
 
@@ -78,6 +79,7 @@ air
 
 ```bash
 cd fronend
+yarn
 yarn dev
 ```
 
