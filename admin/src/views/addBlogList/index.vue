@@ -54,7 +54,7 @@ export default {
     getWorkById({ id: this.workData.id }).then((res) => {
       this.workData.content = res.data[0].content;
       this.contentEditor = new Vditor("vditor", {
-        height: 360,
+        height: 720,
         toolbarConfig: {
           pin: true,
         },

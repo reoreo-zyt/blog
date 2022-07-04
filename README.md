@@ -80,6 +80,5 @@ air
 ```bash
 cd fronend
 yarn
-yarn dev
+yarn serve
 ```
-

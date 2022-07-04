@@ -51,6 +51,8 @@ func InitRouter() *gin.Engine {
 	r.GET("/api/v1/main/findTagId", api.FindTagId)
 	//
 	r.GET("/api/v1/main/getArticleByTagId", api.GetArticleByTagId)
+	// 查找demo
+	r.GET("/api/v1/main/getDemo", api.FindDemo)
 	apiv1 := r.Group("/api/v1")
 	// jwt 鉴权
 	apiv1.Use(jwt.JWT())
@@ -79,6 +81,12 @@ func InitRouter() *gin.Engine {
 		apiv1.POST("/main/addTag", api.AddTag)
 		// 更新标签
 		apiv1.POST("/main/updateTag", api.UpdateTag)
+		// 增加
+		apiv1.POST("/main/addDemo", api.AddDemo)
+		// 更新
+		apiv1.POST("/main/updateDemo", api.UpdateDemo)
+		// 删除
+		apiv1.POST("/main/deleteDemo", api.RemoveDemo)
 	}
 	return r
 }

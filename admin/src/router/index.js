@@ -75,6 +75,27 @@ export const constantRoutes = [
       },
     ]
   },
+  {
+    path: '/blogMessage/demo',
+    component: Layout,
+    redirect: '/blogMessage/demo',
+    name: 'Demo',
+    meta: { title: 'demo信息', icon: 'el-icon-edit', roles: ['admin'] },
+    children: [
+      {
+        path: '/blogMessage/demo/demoMessage',
+        name: 'DemoMessage',
+        component: () => import('@/views/demoMessage/index'),
+        meta: { title: 'demo信息列表', icon: 'el-icon-s-operation', roles: ['admin'] }
+      },
+      {
+        path: '/blogMessage/demoAdd',
+        name: 'DemoAdd',
+        component: () => import('@/views/demoAdd/index'),
+        meta: { title: 'demo信息添加', icon: 'el-icon-s-operation', roles: ['admin'] }
+      },
+    ]
+  },
 ]
 
 // 权限路由
