@@ -1,3 +1,13 @@
+/*
+ * @Author: reoreo 57691895+reoreo-zyt@users.noreply.github.com
+ * @Date: 2022-06-02 16:48:50
+ * @LastEditors: reoreo 57691895+reoreo-zyt@users.noreply.github.com
+ * @LastEditTime: 2022-07-04 23:01:17
+ * @FilePath: \blog\backend\models\demo.go
+ * @Description: 计划中的 demo
+ *
+ * Copyright (c) 2022 by reoreo 57691895+reoreo-zyt@users.noreply.github.com, All Rights Reserved.
+ */
 package models
 
 type Demo struct {
@@ -11,9 +21,9 @@ type Demo struct {
 
 // 查询
 func FindDemo() interface{} {
-	var demo Demo
-	result := db.Find(&demo)
-	return result.Value
+	var demo []Demo
+	db.Raw("select * from blog_demo as ba where ba.state = 1").Scan(&demo)
+	return demo
 }
 
 // 增加
@@ -24,8 +34,9 @@ func AddDemo(name, desc, imgUrl string, create_on, state int) interface{} {
 }
 
 // 更新
-func UpdateDemo(name, desc, imgUrl string, create_on, state int) bool {
-	demo := Demo{Name: name, Desc: desc, CreateOn: create_on, State: state, ImgUrl: imgUrl}
+func UpdateDemo(name, desc, imgUrl string, create_on, state, id int) bool {
+	// TODO: 按照id更新
+	demo := Demo{Id: id, Name: name, Desc: desc, CreateOn: create_on, State: state, ImgUrl: imgUrl}
 	result := db.Save(&demo)
 	return result.RowsAffected != 0
 }

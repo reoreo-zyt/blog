@@ -42,7 +42,7 @@ export const constantRoutes = [
     component: () => import('@/views/404'),
     hidden: true
   },
-  // TODO: 
+  // TODO:
   // {
   //   path: '/',
   //   component: Layout,
@@ -88,12 +88,12 @@ export const constantRoutes = [
         component: () => import('@/views/demoMessage/index'),
         meta: { title: 'demo信息列表', icon: 'el-icon-s-operation', roles: ['admin'] }
       },
-      {
-        path: '/blogMessage/demoAdd',
-        name: 'DemoAdd',
-        component: () => import('@/views/demoAdd/index'),
-        meta: { title: 'demo信息添加', icon: 'el-icon-s-operation', roles: ['admin'] }
-      },
+      // {
+      //   path: '/blogMessage/demoAdd',
+      //   name: 'DemoAdd',
+      //   component: () => import('@/views/demoAdd/index'),
+      //   meta: { title: 'demo信息添加', icon: 'el-icon-s-operation', roles: ['admin'] }
+      // },
     ]
   },
 ]

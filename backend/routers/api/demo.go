@@ -29,7 +29,7 @@ func AddDemo(c *gin.Context) {
 func UpdateDemo(c *gin.Context) {
 	var demo models.Demo
 	c.ShouldBindJSON(&demo)
-	isOk := models.UpdateDemo(demo.Name, demo.Desc, demo.ImgUrl, demo.CreateOn, demo.State)
+	isOk := models.UpdateDemo(demo.Name, demo.Desc, demo.ImgUrl, demo.CreateOn, demo.State, demo.Id)
 	if isOk {
 		c.JSON(http.StatusCreated, gin.H{
 			"code":    200,

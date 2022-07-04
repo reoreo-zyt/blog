@@ -37,7 +37,7 @@
       <el-table-column label="标题" min-width="150px" align="center">
         <template slot-scope="{ row }">
           <span class="link-type" @click="handleUpdate(row)">{{
-            row.title
+            row.name
           }}</span>
         </template>
       </el-table-column>
@@ -48,44 +48,15 @@
           }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="标签" width="150px" align="center">
-        <template slot-scope="{ row }">
-          <span>{{ row.name.split(";").join(" | ") }}</span>
-        </template>
-      </el-table-column>
       <el-table-column label="创建时间" width="110px" align="center">
         <template slot-scope="{ row }">
-          <span>{{ timestampToTime(row.created_on) }}</span>
+          <span>{{ timestampToTime(row.create_on) }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="创建作者" width="110px" align="center">
+      <el-table-column label="图片地址" min-width="150px" align="center">
         <template slot-scope="{ row }">
-          <span>{{ row.created_by }}</span>
-        </template>
-      </el-table-column>
-      <el-table-column
-        v-if="showReviewer"
-        label="Reviewer"
-        width="110px"
-        align="center"
-      >
-        <template slot-scope="{ row }">
-          <span style="color: red">{{ row.reviewer }}</span>
-        </template>
-      </el-table-column>
-      <el-table-column label="修改时间" width="110px" align="center">
-        <template slot-scope="{ row }">
-          <span>{{
-            row.modified_on == 0
-              ? "文章首次发布"
-              : timestampToTime(row.modified_on)
-          }}</span>
-        </template>
-      </el-table-column>
-      <el-table-column label="修改作者" width="110px" align="center">
-        <template slot-scope="{ row }">
-          <span>{{
-            row.modified_by == "noname" ? "文章尚未修改" : row.modified_by
+          <span class="link-type" @click="handleUpdate(row)">{{
+            row.imgUrl
           }}</span>
         </template>
       </el-table-column>
@@ -98,9 +69,6 @@
         <template slot-scope="{ row, $index }">
           <el-button type="primary" size="mini" @click="handleUpdate(row)">
             编辑
-          </el-button>
-          <el-button type="primary" size="mini" @click="toContent(row)">
-            撰写文章
           </el-button>
           <el-button
             v-if="row.status != 'deleted'"
@@ -123,17 +91,14 @@
         label-width="120px"
         style="width: 400px; margin-left: 20px"
       >
-        <el-form-item label="标题" prop="title">
-          <el-input v-model="temp.title" placeholder="请输入文章标题" />
+        <el-form-item label="标题" prop="name">
+          <el-input v-model="temp.name" placeholder="请输入文章标题" />
         </el-form-item>
         <el-form-item label="摘要" prop="desc">
           <el-input v-model="temp.desc" placeholder="请输入文章摘要" />
         </el-form-item>
-        <el-form-item label="标签" prop="name">
-          <el-input
-            v-model="temp.name"
-            placeholder="请输入文章标签(以英文符号;隔开)"
-          />
+        <el-form-item label="图片地址" prop="imgUrl">
+          <el-input v-model="temp.imgUrl" placeholder="请输入图片地址" />
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -168,8 +133,7 @@
 </template>
 
 <script>
-import { getDemo } from "@/api/demo";
-import { addTag, updateTag } from "@/api/tag";
+import { getDemo, addDemo, updateDemo, deleteDemo } from "@/api/demo";
 import { createBucket, changePolice } from "@/api/file";
 import waves from "@/directive/waves"; // waves directive
 import { parseTime } from "@/utils";
@@ -212,16 +176,11 @@ export default {
       showReviewer: false,
       teacherOptions: undefined,
       temp: {
-        title: "",
-        desc: "",
-        tag_id: 1,
+        id: 0,
         name: "",
-        content: "",
-        created_on: 0,
-        created_by: "reoreo",
-        modified_on: 0,
-        modified_by: "noname",
-        delete_on: 0,
+        desc: "",
+        create_on: 0,
+        imgUrl: "",
         state: 1,
       },
       dialogFormVisible: false,
@@ -318,31 +277,24 @@ export default {
     createData() {
       this.$refs["dataForm"].validate((valid) => {
         if (valid) {
-          addTag({ name: this.temp.name }).then((res) => {
-            this.temp.created_on = parseInt(
-              Date.now()
-                .toString()
-                .substring(0, Date.now().toString().length - 3)
-            );
-            this.temp.tag_id = res.data.id;
-            addWork(this.temp).then((res) => {
-              this.list.unshift(this.temp);
-              this.dialogFormVisible = false;
-              this.$notify({
-                title: "成功",
-                message: "创建成功",
-                type: "success",
-                duration: 2000,
-              });
-              // 创建完后创建图片的存储库
-              createBucket({ bucketName: "blog-" + res.data.id }).then(() => {
-                changePolice({ bucketName: "blog-" + res.data.id });
-              });
-              this.temp.title = "";
-              this.temp.desc = "";
-              this.temp.name = "";
-              this.getList()
+          this.temp.create_on = parseInt((new Date().getTime()) / 1000);
+          addDemo(this.temp).then((res) => {
+            this.list.unshift(this.temp);
+            this.dialogFormVisible = false;
+            this.$notify({
+              title: "成功",
+              message: "创建成功",
+              type: "success",
+              duration: 2000,
             });
+            // 创建完后创建图片的存储库
+            createBucket({ bucketName: "demo-" + res.data.id }).then(() => {
+              changePolice({ bucketName: "demo-" + res.data.id });
+            });
+            this.temp.name = "";
+            this.temp.desc = "";
+            this.temp.imgUrl = "";
+            this.getList();
           });
         }
       });
@@ -357,23 +309,15 @@ export default {
       });
     },
     updateData() {
-      updateTag({ id: this.temp.tag_id, name: this.temp.name }).then(() => {
+      updateDemo(this.temp).then(() => {
         this.$notify({
           title: "成功",
-          message: "成功修改标签！",
+          message: "成功修改demo！",
           type: "success",
           duration: 2000,
         });
       });
-      updateWork(this.temp).then(() => {
-        this.$notify({
-          title: "成功",
-          message: "成功修改文章！",
-          type: "success",
-          duration: 2000,
-        });
-        this.getList();
-      });
+      this.getList();
     },
     toContent(row) {
       this.$router.push({
@@ -382,7 +326,7 @@ export default {
       });
     },
     handleDelete(row, index) {
-      deleteWork(row).then(() => {
+      deleteDemo(row).then(() => {
         this.$notify({
           title: "成功",
           message: "删除成功！",
@@ -402,12 +346,7 @@ export default {
       this.downloadLoading = true;
       import("@/vendor/Export2Excel").then((excel) => {
         const tHeader = ["title", "desc", "content", "name"];
-        const filterVal = [
-          "title",
-          "desc",
-          "content",
-          "name",
-        ];
+        const filterVal = ["title", "desc", "content", "name"];
         const data = this.formatJson(filterVal);
         excel.export_json_to_excel({
           header: tHeader,

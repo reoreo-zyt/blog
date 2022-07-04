@@ -2,7 +2,24 @@
   <div class="hello">
     <!-- <h1 style="color: #1ed0d0;">{{ titleMsg }}</h1> -->
     <div class="wrapper">
-      <h2>
+      <h2><strong>文章</strong></h2>
+      <div>
+        <div v-for="(item, i) in result" v-bind:key="i">
+          <h3 style="color: #1ed0d0">{{ `${nameArray[i]}` }}</h3>
+          <div v-for="(aitem, j) in item" v-bind:key="j" style="margin: 20px 0">
+            <div v-if="aitem != null">
+              <router-link :to="{ path: '/article', query: { id: aitem.id } }">
+                <span style="margin: 0 20px; color: #247777; cursor: pointer">{{
+                  aitem.title
+                }}</span>
+              </router-link>
+              <span>发布时间：{{ getLocalTime(aitem.created_on) }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- <h2>
         <strong>demo</strong>
       </h2>
 
@@ -30,28 +47,26 @@
 
           <figcaption>KoseBoz!</figcaption>
         </figure>
-      </div>
+      </div> -->
 
       <h2>
         <strong>计划中<span></span>...</strong>
       </h2>
 
-      <div class="news">
+      <div class="news" v-for="(data, index) in demoData" v-bind:key="index">
         <figure class="article">
-          <img src="https://mrreiha.keybase.pub/codepen/hover-fx/news1.jpg" />
+          <img :src="data.imgUrl" />
 
           <figcaption>
-            <h3>New Item</h3>
+            <h3>{{ data.name }}</h3>
 
             <p>
-              In today’s update, two heads are better than one, and three heads
-              are better than that, as the all-new Flockheart’s Gamble Arcana
-              item for Ogre Magi makes its grand debut.
+              {{ data.desc }}
             </p>
           </figcaption>
         </figure>
 
-        <figure class="article">
+        <!-- <figure class="article">
           <img src="https://mrreiha.keybase.pub/codepen/hover-fx/news2.png" />
 
           <figcaption>
@@ -63,23 +78,19 @@
             </p>
           </figcaption>
         </figure>
-      </div>
 
-      <h2><strong>文章</strong></h2>
-      <div>
-        <div v-for="(item, i) in result" v-bind:key="i">
-          <h3 style="color: #1ed0d0">{{ `${nameArray[i]}` }}</h3>
-          <div v-for="(aitem, j) in item" v-bind:key="j" style="margin: 20px 0">
-            <div v-if="aitem != null">
-              <router-link :to="{path:'/article',query:{id:aitem.id}}">
-                <span style="margin: 0 20px; color: #247777; cursor: pointer">{{
-                  aitem.title
-                }}</span>
-              </router-link>
-              <span>发布时间：{{ getLocalTime(aitem.created_on) }}</span>
-            </div>
-          </div>
-        </div>
+                <figure class="article">
+          <img src="https://mrreiha.keybase.pub/codepen/hover-fx/news2.png" />
+
+          <figcaption>
+            <h3>Update</h3>
+
+            <p>
+              Just in time for Lunar New Year and the Rat’s time in the cyclical
+              place of honor, the Treasure of Unbound Majesty is now available.
+            </p>
+          </figcaption>
+        </figure> -->
       </div>
     </div>
   </div>
@@ -96,6 +107,7 @@ export default {
       articleData: undefined,
       nameArray: undefined,
       result: undefined,
+      demoData: undefined,
     };
   },
   created() {
@@ -109,6 +121,7 @@ export default {
       }
     }, 500);
     this.receiveAllArticle();
+    this.receiveAllDemo();
   },
   methods: {
     getLocalTime(n) {
@@ -144,7 +157,7 @@ export default {
           // this.result = [this.nameArray.length][this.articleData.length]
           // this.result[0][0] = 1
           let result = new Array(this.nameArray.length);
-          // TODO: 复杂度高，后续考虑重写数据库
+          // TODO: 复杂度高，后续考虑重写数据库，标签和文章的关系重写
           for (let i = 0; i < this.nameArray.length; i++) {
             result[i] = new Array(this.articleData.length);
             for (let j = 0; j < this.articleData.length; j++) {
@@ -157,6 +170,13 @@ export default {
           }
           this.result = result;
           // console.log(this.result);
+        });
+    },
+    receiveAllDemo() {
+      fetch("http://localhost:5301/api/v1/main/getDemo")
+        .then((response) => response.json())
+        .then((res) => {
+          this.demoData = res.data;
         });
     },
   },
