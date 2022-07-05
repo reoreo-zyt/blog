@@ -24,8 +24,8 @@ CREATE TABLE `blog_demo` (
   `id` INT AUTO_INCREMENT NOT NULL,
   `name` VARCHAR(250) NOT NULL COMMENT 'demo名称' ,
   `desc` VARCHAR(250) NOT NULL COMMENT '描述' ,
-  `create_on` VARCHAR(250) NOT NULL COMMENT '创建时间' ,
-  `type` INT NOT NULL COMMENT '0 为demo，1为计划中' ,
+  `create_on` INT NOT NULL COMMENT '创建时间' ,
+  `state` INT NOT NULL COMMENT '0 为已删除，1为demo，2为计划中' ,
   `imgUrl` VARCHAR(250) NOT NULL COMMENT '图片链接' ,
   CONSTRAINT `PRIMARY` PRIMARY KEY (`id`)
 );
