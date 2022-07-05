@@ -5,7 +5,7 @@ WORKDIR /opt
 # 将项目中的所有文件放到容器的opt文件下
 ADD . /opt
 # 生成二进制文件
-RUN go build -o main ./mian.go
+RUN go build -o main ./main.go
 # 接口
 EXPOSE 5200
 # 执行项目的命令
