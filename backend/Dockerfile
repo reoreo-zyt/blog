@@ -4,6 +4,8 @@ FROM golang:1.17.7
 WORKDIR /opt
 # 将项目中的所有文件放到容器的opt文件下
 ADD . /opt
+# 取消代理
+RUN go env -u GOPROXY
 # 生成二进制文件
 RUN go build -o main ./main.go
 # 接口
