@@ -9,8 +9,8 @@ import (
 	"github.com/reoreo-zyt/blog/backend/middleware/jwt"
 	"github.com/reoreo-zyt/blog/backend/pkg/setting"
 	"github.com/reoreo-zyt/blog/backend/routers/api"
-	ginSwagger "github.com/swaggo/gin-swagger"
-	"github.com/swaggo/gin-swagger/swaggerFiles"
+	// ginSwagger "github.com/swaggo/gin-swagger"
+	// "github.com/swaggo/gin-swagger/swaggerFiles"
 )
 
 func InitRouter() *gin.Engine {
@@ -38,7 +38,7 @@ func InitRouter() *gin.Engine {
 
 	gin.SetMode(setting.RunMode)
 
-	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
+	// r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 	r.POST("/api/v1/auth", api.GetAuth)
 	r.GET("/api/v1/captcha", api.GenerateCaptcha)
 	r.GET("/api/v1/captcha/:captchaId", api.GetCaptcha)
