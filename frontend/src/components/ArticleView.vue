@@ -38,7 +38,7 @@ import MarkdownIt from "markdown-it";
 import hljs from "highlight.js";
 import emoji from "markdown-it-emoji";
 import footnote from "markdown-it-footnote";
-// import katex from "markdown-it-katex";
+import katex from "markdown-it-katex";
 // import Vditor from "vditor";
 
 export default {
@@ -103,8 +103,7 @@ export default {
             return '<pre class="hljs"><code>' + html + "</code></pre>";
           },
         })
-          // TODO: katex公式暂时不行，但是单独渲染又可以？
-          // .use(katex)
+          .use(katex)
           .use(emoji)
           .use(footnote);
         // this.content = md.render(`$\\sqrt{3x-1}+(1+x)^2$`);

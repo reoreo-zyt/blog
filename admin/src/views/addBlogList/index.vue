@@ -65,8 +65,8 @@ export default {
           this.contentEditor.setValue(this.workData.content);
         },
         upload: {
+          // TODO: 上传文件
           handler(files) {
-            // TODO: 现在是直接从D://assets/blog/filename 中上传文件，后面改为formData格式
             fileUpload({
               bucketName: "blog-" + localStorage.getItem("blog-id"),
               title: files[0].name,
