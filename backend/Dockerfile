@@ -1,5 +1,5 @@
 # 运行项目基于的底层镜像，如本地开发需要安装go一样
-FROM golang:1.17
+FROM golang:1.17-alpine AS builder
 # 为我们的镜像设置必要的环境变量
 ENV GO111MODULE=on \
     GOPROXY=https://goproxy.cn,direct \
