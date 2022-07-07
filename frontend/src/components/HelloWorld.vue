@@ -130,7 +130,7 @@ export default {
     },
     receiveAllArticle() {
       // 获取所有的文章
-      fetch("http://localhost:5301/api/v1/main/homeworkList?page=1&limit=99999")
+      fetch("http://localhost:80/api/v1/main/homeworkList?page=1&limit=99999")
         .then((response) => response.json())
         .then((res) => {
           this.articleData = res.data;
@@ -173,7 +173,7 @@ export default {
         });
     },
     receiveAllDemo() {
-      fetch("http://localhost:5301/api/v1/main/getDemo")
+      fetch("http://localhost:80/api/v1/main/getDemo")
         .then((response) => response.json())
         .then((res) => {
           this.demoData = res.data;

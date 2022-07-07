@@ -1,3 +1,13 @@
+/*
+ * @Author: reoreo 57691895+reoreo-zyt@users.noreply.github.com
+ * @Date: 2022-05-26 12:48:48
+ * @LastEditors: reoreo 57691895+reoreo-zyt@users.noreply.github.com
+ * @LastEditTime: 2022-07-07 21:34:11
+ * @FilePath: \blog\backend\models\blog.go
+ * @Description:
+ *
+ * Copyright (c) 2022 by reoreo 57691895+reoreo-zyt@users.noreply.github.com, All Rights Reserved.
+ */
 package models
 
 type Article struct {

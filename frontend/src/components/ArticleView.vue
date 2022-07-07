@@ -47,7 +47,7 @@ export default {
   //   },
   created() {
     fetch(
-      `http://localhost:5301/api/v1/main/homeworkListById?id=${this.$route.query.id}`
+      `http://localhost:80/api/v1/main/homeworkListById?id=${this.$route.query.id}`
     )
       .then((response) => response.json())
       .then((res) => {

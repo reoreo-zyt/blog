@@ -1,4 +1,14 @@
-const port = 5301
+/*
+ * @Author: reoreo 57691895+reoreo-zyt@users.noreply.github.com
+ * @Date: 2022-07-07 02:52:18
+ * @LastEditors: reoreo 57691895+reoreo-zyt@users.noreply.github.com
+ * @LastEditTime: 2022-07-07 23:12:07
+ * @FilePath: \blog\frontend\vue.config.js
+ * @Description: 配置代理
+ * 
+ * Copyright (c) 2022 by reoreo 57691895+reoreo-zyt@users.noreply.github.com, All Rights Reserved. 
+ */
+const port = 80
 module.exports = {
   transpileDependencies: true,
   //关闭eslint校验
