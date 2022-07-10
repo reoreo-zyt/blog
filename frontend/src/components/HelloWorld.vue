@@ -53,8 +53,8 @@
         <strong>计划中<span></span>...</strong>
       </h2>
 
-      <div class="news" v-for="(data, index) in demoData" v-bind:key="index">
-        <figure class="article">
+      <div class="news">
+        <figure class="article" v-for="(data, index) in demoData" v-bind:key="index">
           <img :src="data.imgUrl" />
 
           <figcaption>
