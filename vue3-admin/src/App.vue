@@ -2,7 +2,7 @@
  * @Author: reoreo 57691895+reoreo-zyt@users.noreply.github.com
  * @Date: 2022-07-09 21:27:18
  * @LastEditors: reoreo 57691895+reoreo-zyt@users.noreply.github.com
- * @LastEditTime: 2022-07-10 01:12:23
+ * @LastEditTime: 2022-07-10 09:26:32
  * @FilePath: \blog\vue3-admin\src\App.vue
  * @Description: 主页面
  * 
@@ -14,7 +14,7 @@
       文档：<a hover-decoration-underline c-blue href="https://uno.antfu.me/" target="_blank">https://uno.antfu.me/</a>
     </p>
     <p>
-      playground：
+      playground:
       <a c-blue hover-decoration-underline href="https://unocss.antfu.me/play/" target="_blank">
         https://unocss.antfu.me/play/
       </a>
@@ -25,50 +25,50 @@
         <div text-20 font-600>Flex布局</div>
         <div flex w-360 flex-wrap justify-around ml-15 p-10>
           <div w-50 h-50 b-1 rounded-5 flex justify-center items-center p-10 m-20>
-            <span w-6 h-6 rounded-3 bg-black></span>
+            <span w-6 h-6 rounded-3 bg-black />
           </div>
           <div w-50 h-50 b-1 rounded-5 flex justify-between p-10 m-20>
-            <span w-6 h-6 rounded-3 bg-black></span>
-            <span w-6 h-6 rounded-3 bg-black self-end></span>
+            <span w-6 h-6 rounded-3 bg-black />
+            <span w-6 h-6 rounded-3 bg-black self-end />
           </div>
           <div w-50 h-50 b-1 rounded-5 flex justify-between p-10 m-20>
-            <span w-6 h-6 rounded-3 bg-black></span>
-            <span w-6 h-6 rounded-3 bg-black self-center></span>
-            <span w-6 h-6 rounded-3 bg-black self-end></span>
+            <span w-6 h-6 rounded-3 bg-black />
+            <span w-6 h-6 rounded-3 bg-black self-center />
+            <span w-6 h-6 rounded-3 bg-black self-end />
           </div>
           <div w-50 h-50 b-1 rounded-5 flex justify-between p-10 m-20>
             <div flex flex-col justify-between>
-              <span w-6 h-6 rounded-3 bg-black></span>
-              <span w-6 h-6 rounded-3 bg-black></span>
+              <span w-6 h-6 rounded-3 bg-black />
+              <span w-6 h-6 rounded-3 bg-black />
             </div>
             <div flex flex-col justify-between>
-              <span w-6 h-6 rounded-3 bg-black></span>
-              <span w-6 h-6 rounded-3 bg-black></span>
+              <span w-6 h-6 rounded-3 bg-black />
+              <span w-6 h-6 rounded-3 bg-black />
             </div>
           </div>
           <div w-50 h-50 b-1 rounded-5 flex flex-col justify-between items-center p-10 m-20>
             <div flex w-full justify-between>
-              <span w-6 h-6 rounded-3 bg-black></span>
-              <span w-6 h-6 rounded-3 bg-black></span>
+              <span w-6 h-6 rounded-3 bg-black />
+              <span w-6 h-6 rounded-3 bg-black />
             </div>
-            <span w-6 h-6 rounded-3 bg-black></span>
+            <span w-6 h-6 rounded-3 bg-black />
             <div flex w-full justify-between>
-              <span w-6 h-6 rounded-3 bg-black></span>
-              <span w-6 h-6 rounded-3 bg-black></span>
+              <span w-6 h-6 rounded-3 bg-black />
+              <span w-6 h-6 rounded-3 bg-black />
             </div>
           </div>
           <div w-50 h-50 b-1 rounded-5 flex flex-col justify-between p-10 m-20>
             <div flex w-full justify-between>
-              <span w-6 h-6 rounded-3 bg-black></span>
-              <span w-6 h-6 rounded-3 bg-black></span>
+              <span w-6 h-6 rounded-3 bg-black />
+              <span w-6 h-6 rounded-3 bg-black />
             </div>
             <div flex w-full justify-between>
-              <span w-6 h-6 rounded-3 bg-black></span>
-              <span w-6 h-6 rounded-3 bg-black></span>
+              <span w-6 h-6 rounded-3 bg-black />
+              <span w-6 h-6 rounded-3 bg-black />
             </div>
             <div flex w-full justify-between>
-              <span w-6 h-6 rounded-3 bg-black></span>
-              <span w-6 h-6 rounded-3 bg-black></span>
+              <span w-6 h-6 rounded-3 bg-black />
+              <span w-6 h-6 rounded-3 bg-black />
             </div>
           </div>
         </div>

@@ -8,11 +8,11 @@
  *
  * Copyright (c) 2022 by reoreo 57691895+reoreo-zyt@users.noreply.github.com, All Rights Reserved.
  */
-import Unocss from "unocss/vite";
-import { presetUno, presetAttributify, presetIcons } from "unocss";
+import Unocss from 'unocss/vite'
+import { presetUno, presetAttributify, presetIcons } from 'unocss'
 
 export function unocss() {
   return Unocss({
     presets: [presetUno(), presetAttributify(), presetIcons()],
-  });
+  })
 }

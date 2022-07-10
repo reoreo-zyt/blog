@@ -5,7 +5,9 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "lint": "eslint --ext .js,.vue .",
+    "lint:fix": "eslint --fix --ext .js,.vue ."
   },
   "dependencies": {
     "vue": "^3.2.25"
@@ -15,6 +17,11 @@
     "@unocss/preset-icons": "^0.44.0",
     "@unocss/preset-uno": "^0.44.0",
     "@vitejs/plugin-vue": "^2.3.3",
+    "eslint": "^8.19.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "eslint-plugin-vue": "^9.2.0",
+    "prettier": "^2.7.1",
     "rollup-plugin-visualizer": "^5.6.0",
     "sass": "^1.53.0",
     "unocss": "^0.44.0",

@@ -6,39 +6,39 @@
  * @FilePath: \blog\vue3-admin\build\utils.js
  * @Description: 在vite项目中，以VITE_ 为前缀的环境变量可以通过 import.meta.env.xxx的方式访问。但是，在node环境中（如vite.config.js文件），并不能通过import.meta.env.xxx这种方式使用环境变量，但我们却有这样的需求，因此我们需要处理一下，让node环境也可以使用我们定义的环境变量。
  * 封装创建代理的方法。
- * 
+ *
  * Copyright (c) 2022 by reoreo 57691895+reoreo-zyt@users.noreply.github.com, All Rights Reserved.
  */
 
 const httpsReg = /^https:\/\//
 
 export function wrapperEnv(envOptions) {
-  if (!envOptions) return {};
-  const rst = {};
+  if (!envOptions) return {}
+  const rst = {}
 
   for (const key in envOptions) {
-    let val = envOptions[key];
-    if (["true", "false"].includes(val)) {
-      val = val === "true";
+    let val = envOptions[key]
+    if (['true', 'false'].includes(val)) {
+      val = val === 'true'
     }
-    if (["VITE_PORT"].includes(key)) {
-      val = +val;
+    if (['VITE_PORT'].includes(key)) {
+      val = +val
     }
-    if (key === "VITE_PROXY" && val) {
+    if (key === 'VITE_PROXY' && val) {
       try {
-        val = JSON.parse(val.replace(/'/g, '"'));
+        val = JSON.parse(val.replace(/'/g, '"'))
       } catch (error) {
-        val = "";
+        val = ''
       }
     }
-    rst[key] = val;
-    if (typeof key === "string") {
-      process.env[key] = val;
-    } else if (typeof key === "object") {
-      process.env[key] = JSON.stringify(val);
+    rst[key] = val
+    if (typeof key === 'string') {
+      process.env[key] = val
+    } else if (typeof key === 'object') {
+      process.env[key] = JSON.stringify(val)
     }
   }
-  return rst;
+  return rst
 }
 
 export function createProxy(list = []) {
