@@ -2,7 +2,7 @@
  * @Author: reoreo 57691895+reoreo-zyt@users.noreply.github.com
  * @Date: 2022-07-10 00:22:43
  * @LastEditors: reoreo 57691895+reoreo-zyt@users.noreply.github.com
- * @LastEditTime: 2022-07-10 10:08:06
+ * @LastEditTime: 2022-07-10 11:22:29
  * @FilePath: \blog\vue3-admin\build\plugin\index.js
  * @Description: 插件
  *
@@ -29,6 +29,8 @@ import { unocss } from './unocss'
 import Components from 'unplugin-vue-components/vite'
 import { NaiveUiResolver } from 'unplugin-vue-components/resolvers'
 
+import { configMockPlugin } from './mock'
+
 export function createVitePlugins(viteEnv, isBuild) {
   const plugins = [
     vue(),
@@ -48,6 +50,10 @@ export function createVitePlugins(viteEnv, isBuild) {
         brotliSize: true,
       })
     )
+  }
+
+  if (viteEnv?.VITE_APP_USE_MOCK) {
+    plugins.push(configMockPlugin(isBuild))
   }
 
   return plugins
