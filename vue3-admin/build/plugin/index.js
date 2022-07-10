@@ -2,9 +2,9 @@
  * @Author: reoreo 57691895+reoreo-zyt@users.noreply.github.com
  * @Date: 2022-07-10 00:22:43
  * @LastEditors: reoreo 57691895+reoreo-zyt@users.noreply.github.com
- * @LastEditTime: 2022-07-10 01:08:33
+ * @LastEditTime: 2022-07-10 10:08:06
  * @FilePath: \blog\vue3-admin\build\plugin\index.js
- * @Description: 集成 vite-plugin-vue-setup-extend；
+ * @Description: 插件
  *
  * Copyright (c) 2022 by reoreo 57691895+reoreo-zyt@users.noreply.github.com, All Rights Reserved.
  */
@@ -22,8 +22,23 @@ import visualizer from 'rollup-plugin-visualizer'
 import { configHtmlPlugin } from './html'
 import { unocss } from './unocss'
 
+/**
+ * * 组件库按需引入插件
+ * usage: 直接使用组件,无需在任何地方导入组件
+ */
+import Components from 'unplugin-vue-components/vite'
+import { NaiveUiResolver } from 'unplugin-vue-components/resolvers'
+
 export function createVitePlugins(viteEnv, isBuild) {
-  const plugins = [vue(), VueSetupExtend(), configHtmlPlugin(viteEnv, isBuild), unocss()]
+  const plugins = [
+    vue(),
+    VueSetupExtend(),
+    configHtmlPlugin(viteEnv, isBuild),
+    unocss(),
+    Components({
+      resolvers: [NaiveUiResolver()],
+    }),
+  ]
 
   if (isBuild) {
     plugins.push(
