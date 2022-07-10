@@ -1,13 +1,3 @@
-/*
- * @Author: reoreo 57691895+reoreo-zyt@users.noreply.github.com
- * @Date: 2022-07-10 11:17:45
- * @LastEditors: reoreo 57691895+reoreo-zyt@users.noreply.github.com
- * @LastEditTime: 2022-07-10 11:19:54
- * @FilePath: \blog\vue3-admin\mock\modules\auth.js
- * @Description: auth
- *
- * Copyright (c) 2022 by reoreo 57691895+reoreo-zyt@users.noreply.github.com, All Rights Reserved.
- */
 import { resolveToken } from '../utils'
 
 const token = {

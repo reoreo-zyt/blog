@@ -1,20 +1,12 @@
-/*
- * @Author: reoreo 57691895+reoreo-zyt@users.noreply.github.com
- * @Date: 2022-07-09 22:33:29
- * @LastEditors: reoreo 57691895+reoreo-zyt@users.noreply.github.com
- * @LastEditTime: 2022-07-10 00:57:27
- * @FilePath: \blog\vue3-admin\build\utils.js
- * @Description: 在vite项目中，以VITE_ 为前缀的环境变量可以通过 import.meta.env.xxx的方式访问。但是，在node环境中（如vite.config.js文件），并不能通过import.meta.env.xxx这种方式使用环境变量，但我们却有这样的需求，因此我们需要处理一下，让node环境也可以使用我们定义的环境变量。
- * 封装创建代理的方法。
- *
- * Copyright (c) 2022 by reoreo 57691895+reoreo-zyt@users.noreply.github.com, All Rights Reserved.
- */
+import fs from 'fs'
+import path from 'path'
+import dotenv from 'dotenv'
 
 const httpsReg = /^https:\/\//
 
 export function wrapperEnv(envOptions) {
   if (!envOptions) return {}
-  const rst = {}
+  const ret = {}
 
   for (const key in envOptions) {
     let val = envOptions[key]
@@ -24,30 +16,30 @@ export function wrapperEnv(envOptions) {
     if (['VITE_PORT'].includes(key)) {
       val = +val
     }
-    if (key === 'VITE_PROXY' && val) {
+    if (key === 'VITE_PROXY' && val && typeof val === 'string') {
       try {
         val = JSON.parse(val.replace(/'/g, '"'))
       } catch (error) {
         val = ''
       }
     }
-    rst[key] = val
-    if (typeof key === 'string') {
+    ret[key] = val
+    if (typeof val === 'string') {
       process.env[key] = val
-    } else if (typeof key === 'object') {
+    } else if (typeof val === 'object') {
       process.env[key] = JSON.stringify(val)
     }
   }
-  return rst
+  return ret
 }
 
 export function createProxy(list = []) {
-  const rst = {}
+  const ret = {}
   for (const [prefix, target] of list) {
     const isHttps = httpsReg.test(target)
 
     // https://github.com/http-party/node-http-proxy#options
-    rst[prefix] = {
+    ret[prefix] = {
       target: target,
       changeOrigin: true,
       ws: true,
@@ -56,5 +48,44 @@ export function createProxy(list = []) {
       ...(isHttps ? { secure: false } : {}),
     }
   }
-  return rst
+  return ret
+}
+
+/**
+ * 获取当前环境下生效的配置文件名
+ */
+function getConfFiles() {
+  const script = process.env.npm_lifecycle_script
+  const reg = new RegExp('--mode ([a-z_\\d]+)')
+  const result = reg.exec(script)
+  if (result) {
+    const mode = result[1]
+    return ['.env', '.env.local', `.env.${mode}`]
+  }
+  return ['.env', '.env.local', '.env.production']
+}
+
+export function getEnvConfig(match = 'VITE_APP_GLOB_', confFiles = getConfFiles()) {
+  let envConfig = {}
+  confFiles.forEach((item) => {
+    try {
+      if (fs.existsSync(path.resolve(process.cwd(), item))) {
+        const env = dotenv.parse(fs.readFileSync(path.resolve(process.cwd(), item)))
+        envConfig = { ...envConfig, ...env }
+      }
+    } catch (e) {
+      console.error(`Error in parsing ${item}`, e)
+    }
+  })
+  const reg = new RegExp(`^(${match})`)
+  Object.keys(envConfig).forEach((key) => {
+    if (!reg.test(key)) {
+      Reflect.deleteProperty(envConfig, key)
+    }
+  })
+  return envConfig
+}
+
+export function getRootPath(...dir) {
+  return path.resolve(process.cwd(), ...dir)
 }

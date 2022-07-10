@@ -1,14 +1,5 @@
-/*
- * @Author: reoreo 57691895+reoreo-zyt@users.noreply.github.com
- * @Date: 2022-07-10 10:31:31
- * @LastEditors: reoreo 57691895+reoreo-zyt@users.noreply.github.com
- * @LastEditTime: 2022-07-10 10:31:41
- * @FilePath: \blog\vue3-admin\src\utils\token.js
- * @Description: token
- *
- * Copyright (c) 2022 by reoreo 57691895+reoreo-zyt@users.noreply.github.com, All Rights Reserved.
- */
 import { lStorage } from './cache'
+import { refreshToken } from '@/api/auth'
 
 const TOKEN_CODE = 'access_token'
 const DURATION = 6 * 60 * 60
@@ -23,4 +14,20 @@ export function setToken(token) {
 
 export function removeToken() {
   lStorage.remove(TOKEN_CODE)
+}
+
+export async function refreshAccessToken() {
+  const tokenItem = lStorage.getItem(TOKEN_CODE)
+  if (!tokenItem) {
+    return
+  }
+  const { time } = tokenItem
+  // token生成或者刷新后30分钟内不执行刷新
+  if (new Date().getTime() - time <= 1000 * 60 * 30) return
+  try {
+    const res = await refreshToken()
+    if (res.code === 0) {
+      setToken(res.data.token)
+    }
+  } catch (error) {}
 }

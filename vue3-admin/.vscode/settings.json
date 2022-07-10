@@ -1,0 +1,9 @@
+{
+  "files.eol": "\n",
+  "editor.formatOnSave": false,
+  "eslint.validate": ["javascript", "javascriptreact", "typescript", "vue"],
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  },
+  "cssrem.rootFontSize": 4, // 适配unocss，1rem = 4px  ==>  0.25rem = 1px
+}

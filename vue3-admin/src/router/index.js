@@ -1,24 +1,28 @@
-/*
- * @Author: reoreo 57691895+reoreo-zyt@users.noreply.github.com
- * @Date: 2022-07-10 11:29:13
- * @LastEditors: reoreo 57691895+reoreo-zyt@users.noreply.github.com
- * @LastEditTime: 2022-07-10 12:00:41
- * @FilePath: \blog\vue3-admin\src\router\index.js
- * @Description: 路由
- *
- * Copyright (c) 2022 by reoreo 57691895+reoreo-zyt@users.noreply.github.com, All Rights Reserved.
- */
-import { createRouter, createWebHashHistory } from 'vue-router'
-import { basicRoutes as routes } from './routes'
+import { createRouter, createWebHistory, createWebHashHistory } from 'vue-router'
 import { setupRouterGuard } from './guard'
+import { basicRoutes } from './routes'
 
+const isHash = !!import.meta.env.VITE_APP_USE_HASH
 export const router = createRouter({
-  history: createWebHashHistory('/'),
-  routes,
+  history: isHash ? createWebHashHistory('/') : createWebHistory('/'),
+  routes: [],
   scrollBehavior: () => ({ left: 0, top: 0 }),
 })
 
+export function resetRouter() {
+  router.getRoutes().forEach((route) => {
+    const { name } = route
+    router.hasRoute(name) && router.removeRoute(name)
+  })
+  basicRoutes.forEach((route) => {
+    !router.hasRoute(route.name) && router.addRoute(route)
+  })
+}
+
 export function setupRouter(app) {
+  basicRoutes.forEach((route) => {
+    !router.hasRoute(route.name) && router.addRoute(route)
+  })
   app.use(router)
   setupRouterGuard(router)
 }

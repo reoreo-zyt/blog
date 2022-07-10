@@ -1,20 +1,10 @@
-/*
- * @Author: reoreo 57691895+reoreo-zyt@users.noreply.github.com
- * @Date: 2022-07-10 11:59:32
- * @LastEditors: reoreo 57691895+reoreo-zyt@users.noreply.github.com
- * @LastEditTime: 2022-07-10 11:59:52
- * @FilePath: \blog\vue3-admin\src\router\guard\permission-guard.js
- * @Description: 动态路由守卫
- *
- * Copyright (c) 2022 by reoreo 57691895+reoreo-zyt@users.noreply.github.com, All Rights Reserved.
- */
 import { useUserStore } from '@/store/modules/user'
 import { usePermissionStore } from '@/store/modules/permission'
 import { NOT_FOUND_ROUTE } from '@/router/routes'
-import { getToken, removeToken } from '@/utils/token'
+import { getToken, refreshAccessToken, removeToken } from '@/utils/token'
 import { toLogin } from '@/utils/auth'
 
-const WHITE_LIST = ['/login']
+const WHITE_LIST = ['/login', '/redirect']
 export function createPermissionGuard(router) {
   const userStore = useUserStore()
   const permissionStore = usePermissionStore()
@@ -26,6 +16,7 @@ export function createPermissionGuard(router) {
       } else {
         if (userStore.userId) {
           // 已经拿到用户信息
+          refreshAccessToken()
           next()
         } else {
           await userStore.getUserInfo().catch((error) => {
@@ -46,7 +37,7 @@ export function createPermissionGuard(router) {
       if (WHITE_LIST.includes(to.path)) {
         next()
       } else {
-        next({ path: '/login' })
+        next({ path: '/login', query: { ...to.query, redirect: to.path } })
       }
     }
   })

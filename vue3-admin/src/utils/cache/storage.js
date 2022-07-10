@@ -1,13 +1,3 @@
-/*
- * @Author: reoreo 57691895+reoreo-zyt@users.noreply.github.com
- * @Date: 2022-07-10 10:29:45
- * @LastEditors: reoreo 57691895+reoreo-zyt@users.noreply.github.com
- * @LastEditTime: 2022-07-10 10:31:06
- * @FilePath: \blog\vue3-admin\src\utils\cache\storage.js
- * @Description: 封装 localStorage 和 sessionStorage（支持命名空间和过期时间）
- *
- * Copyright (c) 2022 by reoreo 57691895+reoreo-zyt@users.noreply.github.com, All Rights Reserved.
- */
 import { isNullOrUndef } from '@/utils/is'
 
 class Storage {
