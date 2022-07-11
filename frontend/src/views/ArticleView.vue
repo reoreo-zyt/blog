@@ -42,7 +42,7 @@ export default {
   created() {
     // console.log(hljs);
     fetch(
-      `http://localhost:80/api/v1/main/homeworkListById?id=${this.$route.query.id}`
+      `http://110.40.253.20:80/api/v1/main/homeworkListById?id=${this.$route.query.id}`
     )
       .then((response) => response.json())
       .then((res) => {
