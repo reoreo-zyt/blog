@@ -2,15 +2,15 @@
  * @Author: reoreo 57691895+reoreo-zyt@users.noreply.github.com
  * @Date: 2022-07-07 02:52:18
  * @LastEditors: reoreo 57691895+reoreo-zyt@users.noreply.github.com
- * @LastEditTime: 2022-07-11 22:40:29
+ * @LastEditTime: 2022-07-11 22:59:51
  * @FilePath: \blog\frontend\vue.config.js
  * @Description: 配置代理
  *
  * Copyright (c) 2022 by reoreo 57691895+reoreo-zyt@users.noreply.github.com, All Rights Reserved.
  */
 const port = 80;
-const BundleAnalyzerPlugin =
-  require("webpack-bundle-analyzer").BundleAnalyzerPlugin;
+// const BundleAnalyzerPlugin =
+//   require("webpack-bundle-analyzer").BundleAnalyzerPlugin;
 const CompressionWebpackPlugin = require("compression-webpack-plugin");
 const productionGzipExtensions = ["js", "css"];
 module.exports = {
@@ -55,7 +55,7 @@ module.exports = {
       },
     },
     plugins: [
-      new BundleAnalyzerPlugin(),
+      // new BundleAnalyzerPlugin(),
       new CompressionWebpackPlugin({
         filename: "[path].gz[query]",
         algorithm: "gzip",
