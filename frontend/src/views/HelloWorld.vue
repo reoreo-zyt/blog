@@ -55,7 +55,7 @@
 
       <div class="news">
         <figure class="article" v-for="(data, index) in demoData" v-bind:key="index">
-          <img :src="data.imgUrl" />
+          <img v-lazy="data.imgUrl" />
 
           <figcaption>
             <h3>{{ data.name }}</h3>

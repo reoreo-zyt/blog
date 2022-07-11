@@ -4,7 +4,6 @@
       <div class="sides">
         <router-link to="/" class="logo">返回主页</router-link>
       </div>
-      <!-- <div class="sides"><a href="#" class="menu"> </a></div> -->
       <div class="info">
         <h4>{{ result.name.split(";").join("📎") }}</h4>
         <h1>{{ result.title }}</h1>
@@ -20,7 +19,7 @@
       </div>
     </div>
     <div class="content">
-      <!-- TODO: 内容 -->
+      <!-- TODO: 内容防止xss攻击 -->
       <div v-html="content" class="markdown-body"></div>
       <!-- TODO: 评论(github issue) -->
       <!-- <div v-html="content"></div> -->
@@ -35,24 +34,19 @@
 
 <script>
 import MarkdownIt from "markdown-it";
-import hljs from "highlight.js";
 import emoji from "markdown-it-emoji";
 import footnote from "markdown-it-footnote";
 import katex from "markdown-it-katex";
-// import Vditor from "vditor";
 
 export default {
-  //   components: {
-  //     Markdown,
-  //   },
   created() {
+    // console.log(hljs);
     fetch(
       `http://localhost:80/api/v1/main/homeworkListById?id=${this.$route.query.id}`
     )
       .then((response) => response.json())
       .then((res) => {
         this.result = res.data[0];
-        // this.md2html()
         const md = new MarkdownIt({
           html: true,
           linkify: true,
@@ -105,7 +99,7 @@ export default {
         })
           .use(katex)
           .use(emoji)
-          .use(footnote);
+          .use(footnote)
         // this.content = md.render(`$\\sqrt{3x-1}+(1+x)^2$`);
         this.content = md.render(this.result.content);
       });
@@ -121,9 +115,9 @@ export default {
       n = n + "000";
       return new Date(parseInt(n)).toLocaleString().replace(/:\d{1,2}$/, " ");
     },
-    async md2html() {
-      this.content = await Vditor.md2html(`${this.result.content}`);
-    },
+    // async md2html() {
+    //   this.content = await Vditor.md2html(`${this.result.content}`);
+    // },
   },
 };
 </script>

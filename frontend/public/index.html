@@ -2,7 +2,7 @@
  * @Author: reoreo 57691895+reoreo-zyt@users.noreply.github.com
  * @Date: 2022-05-31 10:35:27
  * @LastEditors: reoreo 57691895+reoreo-zyt@users.noreply.github.com
- * @LastEditTime: 2022-07-06 22:50:16
+ * @LastEditTime: 2022-07-11 22:20:12
  * @FilePath: \blog\frontend\public\index.html
  * @Description: 入口
  * 
@@ -16,11 +16,8 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width,initial-scale=1.0">
   <link rel="icon" href="<%= BASE_URL %>favicon.ico">
-  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.5.0/build/styles/default.min.css"
-    rel="external nofollow">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.5.1/katex.min.css">
-  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
-  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+  <link href="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.5.1/styles/a11y-light.min.css" rel="stylesheet">
+  <link href="https://cdn.bootcdn.net/ajax/libs/KaTeX/0.16.0/katex.min.css" rel="stylesheet">
   <title>
     <%= htmlWebpackPlugin.options.title %>
   </title>
@@ -33,6 +30,7 @@
   </noscript>
   <div id="app"></div>
   <!-- built files will be auto injected -->
+  <script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.5.1/highlight.min.js"></script>
 </body>
 
 </html>
