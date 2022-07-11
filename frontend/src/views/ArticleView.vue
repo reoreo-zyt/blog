@@ -47,6 +47,7 @@ export default {
       .then((response) => response.json())
       .then((res) => {
         this.result = res.data[0];
+        window.document.title = this.result.title
         const md = new MarkdownIt({
           html: true,
           linkify: true,
@@ -99,7 +100,7 @@ export default {
         })
           .use(katex)
           .use(emoji)
-          .use(footnote)
+          .use(footnote);
         // this.content = md.render(`$\\sqrt{3x-1}+(1+x)^2$`);
         this.content = md.render(this.result.content);
       });
