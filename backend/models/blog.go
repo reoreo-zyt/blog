@@ -2,7 +2,7 @@
  * @Author: reoreo 57691895+reoreo-zyt@users.noreply.github.com
  * @Date: 2022-05-26 12:48:48
  * @LastEditors: reoreo 57691895+reoreo-zyt@users.noreply.github.com
- * @LastEditTime: 2022-07-07 21:34:11
+ * @LastEditTime: 2022-07-13 23:36:02
  * @FilePath: \blog\backend\models\blog.go
  * @Description:
  *
@@ -59,6 +59,18 @@ func GetArticle(title, sort string, page, limit int) ArticleData {
 	}
 	articleData.Data = articleWithTag
 	articleData.Total = int(db.Raw("select * from blog_article as ba where ba.state = 1").Scan(&articleWithTag).RowsAffected)
+	return articleData
+}
+
+// 查询文章，不包括内容
+func GetArticleAllExceptContent() ArticleData {
+	var articleWithTag []ArticleWithTag
+	var articleData ArticleData
+
+	db.Raw("select ba.id,ba.tag_id,ba.title,ba.desc,ba.created_on,bt.name,ba.state from blog_article as ba, blog_tag as bt where ba.state = 1 and ba.tag_id = bt.id").Scan(&articleWithTag)
+	articleData.Data = articleWithTag
+	articleData.Total = int(db.Raw("select * from blog_article as ba where ba.state = 1").Scan(&articleWithTag).RowsAffected)
+
 	return articleData
 }
 

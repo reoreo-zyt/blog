@@ -1,3 +1,13 @@
+/*
+ * @Author: reoreo 57691895+reoreo-zyt@users.noreply.github.com
+ * @Date: 2022-07-06 22:11:19
+ * @LastEditors: reoreo 57691895+reoreo-zyt@users.noreply.github.com
+ * @LastEditTime: 2022-07-13 23:11:16
+ * @FilePath: \blog\backend\routers\router.go
+ * @Description: 路由
+ *
+ * Copyright (c) 2022 by reoreo 57691895+reoreo-zyt@users.noreply.github.com, All Rights Reserved.
+ */
 package routers
 
 import (
@@ -45,6 +55,7 @@ func InitRouter() *gin.Engine {
 	r.GET("/api/v1/verify/:captchaId/:value", api.VerifyCaptcha)
 	// 查询文章列表
 	r.GET("/api/v1/main/homeworkList", api.GetArticle)
+	r.GET("/api/v1/main/GetArticleAllExceptContent", api.GetArticleAllExceptContent)
 	// 根据id查询文章
 	r.GET("/api/v1/main/homeworkListById", api.GetArticleById)
 	// 查找tagid

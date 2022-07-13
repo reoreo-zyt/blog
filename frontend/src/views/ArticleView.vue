@@ -40,14 +40,14 @@ import katex from "markdown-it-katex";
 
 export default {
   created() {
-    // console.log(hljs);
     fetch(
-      `http://110.40.253.20:80/api/v1/main/homeworkListById?id=${this.$route.query.id}`
+      process.env.VUE_APP_API_BASE_URL +
+        `/api/v1/main/homeworkListById?id=${this.$route.query.id}`
     )
       .then((response) => response.json())
       .then((res) => {
         this.result = res.data[0];
-        window.document.title = this.result.title
+        window.document.title = this.result.title;
         const md = new MarkdownIt({
           html: true,
           linkify: true,
@@ -116,9 +116,6 @@ export default {
       n = n + "000";
       return new Date(parseInt(n)).toLocaleString().replace(/:\d{1,2}$/, " ");
     },
-    // async md2html() {
-    //   this.content = await Vditor.md2html(`${this.result.content}`);
-    // },
   },
 };
 </script>

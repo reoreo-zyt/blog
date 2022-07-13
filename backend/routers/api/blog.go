@@ -28,6 +28,15 @@ func GetArticle(c *gin.Context) {
 	})
 }
 
+func GetArticleAllExceptContent(c *gin.Context) {
+	c.JSON(http.StatusOK, gin.H{
+		"code":    200,
+		"message": "成功获取信息",
+		"data":    models.GetArticleAllExceptContent().Data,
+		"total":   models.GetArticleAllExceptContent().Total,
+	})
+}
+
 // 根据id查询文章列表
 func GetArticleById(c *gin.Context) {
 	id := com.StrTo(c.Query("id")).MustInt()
