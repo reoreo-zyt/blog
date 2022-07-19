@@ -10,24 +10,16 @@ import (
 	"github.com/reoreo-zyt/blog/backend/pkg/util"
 )
 
-// @Summary 获取 token
-// @Schemes
-// @Description
-// @Tags token
-// @Accept json
-// @Produce json
-// @Success 200
-// @Router /auth [post]
+var auth models.Auth
+
 func GetAuth(c *gin.Context) {
+	// ! 通过 json 交互前后端数据
 	data := make(map[string]interface{})
 	code := e.INVALID_PARAMS
 	// 绑定 json 数据
-	var auth models.Auth
 	c.ShouldBindJSON(&auth)
 	// 判断查询数据库是否有账号密码
-	println(auth.Account)
-	println(auth.Password)
-	isExist := models.GetAuth(auth.Account, auth.Password, auth)
+	isExist := models.GetAuth(auth.Account, auth.Password)
 	// 是则生成 token 作为登录凭证
 	if isExist {
 		token, err := util.GenerateToken(auth.Account, auth.Password)

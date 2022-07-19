@@ -17,14 +17,6 @@ type CaptchaResponse struct {
 	ImageUrl  string `json:"imageUrl"`  //验证码图片url
 }
 
-// @Summary 获取验证码 id
-// @Schemes
-// @Description 通过 github.com/dchest/captcha 插件
-// @Tags 验证码
-// @Accept json
-// @Produce json
-// @Success 200
-// @Router /captcha [get]
 func GenerateCaptcha(c *gin.Context) {
 	length := captcha.DefaultLen
 	captchaId := captcha.NewLen(length)
@@ -39,16 +31,6 @@ func GenerateCaptcha(c *gin.Context) {
 	})
 }
 
-// TODO: param: path 出了问题，应该访问 /captcha/:captchaId.png（swagger使用）
-// @Summary 获取验证码图片
-// @Schemes
-// @Description 通过 github.com/dchest/captcha 插件
-// @Tags 验证码
-// @Accept json
-// @Produce json
-// @Param captchaId path string true "验证码id"
-// @Success 200
-// @Router /captcha/:captchaId [get]
 func GetCaptcha(c *gin.Context) {
 	c.Request.Header.Add("Content-Type", "image/png")
 	captchaId := c.Param("captchaId")

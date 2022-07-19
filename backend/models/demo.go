@@ -1,13 +1,3 @@
-/*
- * @Author: reoreo 57691895+reoreo-zyt@users.noreply.github.com
- * @Date: 2022-06-02 16:48:50
- * @LastEditors: reoreo 57691895+reoreo-zyt@users.noreply.github.com
- * @LastEditTime: 2022-07-04 23:01:17
- * @FilePath: \blog\backend\models\demo.go
- * @Description: 计划中的 demo
- *
- * Copyright (c) 2022 by reoreo 57691895+reoreo-zyt@users.noreply.github.com, All Rights Reserved.
- */
 package models
 
 type Demo struct {

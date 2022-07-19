@@ -1,45 +1,13 @@
-/*
- * @Author: reoreo 57691895+reoreo-zyt@users.noreply.github.com
- * @Date: 2022-07-06 22:11:19
- * @LastEditors: reoreo 57691895+reoreo-zyt@users.noreply.github.com
- * @LastEditTime: 2022-07-13 23:11:16
- * @FilePath: \blog\backend\routers\router.go
- * @Description: 路由
- *
- * Copyright (c) 2022 by reoreo 57691895+reoreo-zyt@users.noreply.github.com, All Rights Reserved.
- */
 package routers
 
 import (
-	// "time"
-
 	"github.com/gin-gonic/gin"
-	// cors "github.com/itsjamie/gin-cors"
-	_ "github.com/reoreo-zyt/blog/backend/docs"
 	"github.com/reoreo-zyt/blog/backend/middleware/jwt"
 	"github.com/reoreo-zyt/blog/backend/pkg/setting"
 	"github.com/reoreo-zyt/blog/backend/routers/api"
-	// ginSwagger "github.com/swaggo/gin-swagger"
-	// "github.com/swaggo/gin-swagger/swaggerFiles"
 )
 
 func InitRouter() *gin.Engine {
-	// 在这里写不需要跨域的API
-	// c := gin.New()
-	// c.Use(cors.Middleware(cors.Config{
-	// 	Origins:         "*",
-	// 	Methods:         "GET, PUT, POST, DELETE",
-	// 	RequestHeaders:  "Origin, Authorization, Content-Type",
-	// 	ExposedHeaders:  "",
-	// 	MaxAge:          50 * time.Second,
-	// 	Credentials:     false,
-	// 	ValidateHeaders: false,
-	// }))
-
-	// 上传到本地
-	// c.POST("/cors/file/fileUploadLocal", api.FileUpload)
-
-	// 需要跨域API
 	r := gin.New()
 
 	r.Use(gin.Logger())
@@ -48,7 +16,6 @@ func InitRouter() *gin.Engine {
 
 	gin.SetMode(setting.RunMode)
 
-	// r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 	r.POST("/api/v1/auth", api.GetAuth)
 	r.GET("/api/v1/captcha", api.GenerateCaptcha)
 	r.GET("/api/v1/captcha/:captchaId", api.GetCaptcha)
@@ -79,15 +46,6 @@ func InitRouter() *gin.Engine {
 		apiv1.POST("/mian/updateArticleWithContent", api.UpdateArticleWithContent)
 		// 删除文章
 		apiv1.POST("/main/deleteHomeworkList", api.DeleteArticle)
-		// 创建桶
-		apiv1.POST("/file/CreateBucket", api.CreateBucket)
-		// 设置桶为 public
-		apiv1.POST("/file/ChangePolice", api.ChangePolice)
-		// 获取所有桶的名称
-		apiv1.GET("/file/getListBucket", api.ListBucket)
-		// 上传文件
-		apiv1.POST("/file/fileUpload", api.FileUploader)
-		apiv1.POST("/cors/file/fileUploadLocal", api.FileUpload)
 		// 新增标签
 		apiv1.POST("/main/addTag", api.AddTag)
 		// 更新标签
