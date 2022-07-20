@@ -63,6 +63,13 @@ module.exports = {
         // }
         // pathRewrite: { '^/api/v1': '' }
       },
+      '/api/v1/image': {
+        target: 'http://localhost:9002',//****这里写上后端提供的基础地址 *****
+        ws: true, //是否允许websocket
+        secure: false,
+        changeOrigin: true,
+        // pathRewrite: { '^/api/v2': '' }
+      }
     },
   },
   configureWebpack: {

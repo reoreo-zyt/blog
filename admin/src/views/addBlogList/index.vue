@@ -23,7 +23,6 @@
 
 <script>
 import { updateArticleWithContent, getWorkById } from "@/api/work";
-import { fileUpload } from "@/api/file";
 import Vditor from "vditor";
 export default {
   data() {
@@ -65,19 +64,18 @@ export default {
           this.contentEditor.setValue(this.workData.content);
         },
         upload: {
-          // TODO: 上传文件
-          handler(files) {
-            fileUpload({
-              bucketName: "blog-" + localStorage.getItem("blog-id"),
-              title: files[0].name,
-              path: "D:/assets/blog/" + files[0].name,
-            }).then((res) => {
-              console.log(res);
-              let p = document.createElement("p");
-              p.innerHTML = `<span class="vditor-ir__node" data-type="img"><span class="vditor-ir__marker">!</span><span class="vditor-ir__marker vditor-ir__marker--bracket">[</span><span class="vditor-ir__marker vditor-ir__marker--bracket">]</span><span class="vditor-ir__marker vditor-ir__marker--paren">(</span><span class="vditor-ir__marker vditor-ir__marker--link">http://110.40.253.20:9002/${res.objectLocation.Bucket}/${res.objectName}</span><span class="vditor-ir__marker vditor-ir__marker--paren">)</span><img src="http://110.40.253.20:9002/${res.objectLocation.Bucket}/${res.objectName}"></span>`;
-              p.setAttribute("data-block", "0");
-              let vr = document.querySelector(".vditor-ir > .vditor-reset");
-              vr.appendChild(p);
+          accept: "image/*",
+          url: "http://110.40.253.20:5300/api/v1/image/upload",
+          fieldName: "file",
+          success: (_, msg) => {
+            this.contentEditor.insertValue(
+              `![${msg}](http://110.40.253.20:5300/api/v1/image/${msg})`
+            );
+            this.$notify({
+              title: "成功",
+              message: "图片上传成功",
+              type: "success",
+              duration: 2000,
             });
           },
         },
@@ -86,7 +84,6 @@ export default {
   },
   methods: {
     handleUpdate() {
-      console.log(this.contentEditor);
       updateArticleWithContent({
         id: this.workData.id,
         content: this.contentEditor.getValue(),
