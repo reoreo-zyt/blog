@@ -39,7 +39,7 @@
             </div>
           </div>
           <div v-if="commonType">
-            <div v-for="(item, index) in articleData">
+            <div v-for="(item, index) in articleData" v-bind:key="index">
               <div style="margin: 20px 0">
                 <router-link :to="{ path: '/article', query: { id: item.id } }">
                   <span style="margin: 0 20px; color: #247777; cursor: pointer">{{
@@ -47,8 +47,11 @@
                   }}</span>
                 </router-link>
                 <span>发布时间：{{ getLocalTime(item.created_on) }}</span>
-                <span class="a_tag-wrap" v-for="(aitem, index) in item.name.split(';')">
-                  <span class="a_tag" data-number="🚩" @click="changeViewStyle()">{{ aitem }}</span>
+                <!-- <span class="tags" v-for="(aitem, index) in item.name.split(';')" v-bind:key="index">
+                  <span class="tag">{{ aitem }}</span>
+                </span> -->
+                <span class="a_tag-wrap" v-for="aitem in item.name.split(';')" v-bind:key="aitem">
+                  <span class="a_tag" data-number="🔖" @click="changeViewStyle()">{{ aitem }}</span>
                 </span>
               </div>
             </div>
@@ -85,7 +88,6 @@
         </div>
       </div>
     </div>
-  </div>
   </div>
 </template>
 
@@ -684,33 +686,26 @@ h2:after {
   .wrapper .left {
     display: none;
   }
+
+  .tag-container {
+    display: none;
+  }
+
+  .news {
+    display: flex;
+    justify-content: center;
+  }
 }
 
 .a_tag-wrap {
   width: 40%;
   margin: auto;
   margin-top: 5em;
-  border: 1px solid black;
+  /* border: 1px solid black; */
   padding: 0.5em;
-  -webkit-box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.75), inset 0 0 0.5em rgba(0, 0, 0, 0.5);
-  -moz-box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.75), inset 0 0 0.5em rgba(0, 0, 0, 0.5);
-  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.75), inset 0 0 0.5em rgba(0, 0, 0, 0.5);
   -webkit-border-radius: 0.5em;
   -moz-border-radius: 0.5em;
   border-radius: 0.5em;
-  /* IE9 SVG, needs conditional override of 'filter' to 'none' */
-  background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzVlNjA1ZiIgc3RvcC1vcGFjaXR5PSIwLjkxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjElIiBzdG9wLWNvbG9yPSIjNWU2MDVmIiBzdG9wLW9wYWNpdHk9IjAuOTEiLz4KICAgIDxzdG9wIG9mZnNldD0iNTAlIiBzdG9wLWNvbG9yPSIjNmU3Nzc0IiBzdG9wLW9wYWNpdHk9IjAuODkiLz4KICAgIDxzdG9wIG9mZnNldD0iNTElIiBzdG9wLWNvbG9yPSIjMGEwZTBhIiBzdG9wLW9wYWNpdHk9IjAuODkiLz4KICAgIDxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iIzMzMzMzMyIgc3RvcC1vcGFjaXR5PSIwLjg3Ii8+CiAgPC9saW5lYXJHcmFkaWVudD4KICA8cmVjdCB4PSIwIiB5PSIwIiB3aWR0aD0iMSIgaGVpZ2h0PSIxIiBmaWxsPSJ1cmwoI2dyYWQtdWNnZy1nZW5lcmF0ZWQpIiAvPgo8L3N2Zz4=);
-  background: -moz-linear-gradient(top, rgba(94, 96, 95, 0.91) 0%, rgba(94, 96, 95, 0.91) 1%, rgba(110, 119, 116, 0.89) 50%, rgba(10, 14, 10, 0.89) 51%, rgba(51, 51, 51, 0.87) 100%);
-  /* FF3.6+ */
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, rgba(94, 96, 95, 0.91)), color-stop(1%, rgba(94, 96, 95, 0.91)), color-stop(50%, rgba(110, 119, 116, 0.89)), color-stop(51%, rgba(10, 14, 10, 0.89)), color-stop(100%, rgba(51, 51, 51, 0.87)));
-  /* Chrome,Safari4+ */
-  background: -webkit-linear-gradient(top, rgba(94, 96, 95, 0.91) 0%, rgba(94, 96, 95, 0.91) 1%, rgba(110, 119, 116, 0.89) 50%, rgba(10, 14, 10, 0.89) 51%, rgba(51, 51, 51, 0.87) 100%);
-  /* Chrome10+,Safari5.1+ */
-  background: -o-linear-gradient(top, rgba(94, 96, 95, 0.91) 0%, rgba(94, 96, 95, 0.91) 1%, rgba(110, 119, 116, 0.89) 50%, rgba(10, 14, 10, 0.89) 51%, rgba(51, 51, 51, 0.87) 100%);
-  /* Opera 11.10+ */
-  background: -ms-linear-gradient(top, rgba(94, 96, 95, 0.91) 0%, rgba(94, 96, 95, 0.91) 1%, rgba(110, 119, 116, 0.89) 50%, rgba(10, 14, 10, 0.89) 51%, rgba(51, 51, 51, 0.87) 100%);
-  /* IE10+ */
-  background: linear-gradient(to bottom, rgba(94, 96, 95, 0.91) 0%, rgba(94, 96, 95, 0.91) 1%, rgba(110, 119, 116, 0.89) 50%, rgba(10, 14, 10, 0.89) 51%, rgba(51, 51, 51, 0.87) 100%);
   /* W3C */
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#e85e605f', endColorstr='#de333333', GradientType=0);
 }
