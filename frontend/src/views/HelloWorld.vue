@@ -69,7 +69,7 @@
             </div>
             <div class="tag-side tag-2-side is-back">
               <div class="tag-text tag-2-text">
-                练习 demo，独立游戏开发进度 0%...
+                练习 demo
                 <div class="rule-diagonal"></div>
               </div>
             </div>
@@ -86,6 +86,9 @@
             </figcaption>
           </figure>
         </div>
+      </div>
+      <div class="footer">
+        <a href="https://beian.miit.gov.cn/" target="_blank">粤ICP备2022096889号</a>
       </div>
     </div>
   </div>
