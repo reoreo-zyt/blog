@@ -106,7 +106,7 @@ export default {
       loading: false,
       passwordType: "password",
       redirect: undefined,
-      imageTemp: "http://localhost:5300/api/v1",
+      imageTemp: "http://110.40.253.20:5300/api/v1",
       imageUrl: "",
       verifyUrl: "",
     };
@@ -137,7 +137,7 @@ export default {
           // 账号密码无误后检验验证码
           this.verifyUrl = this.verifyUrl.slice(8, -4);
           verifyCaptcha(
-            "http://localhost:5300/api/v1/verify" +
+            "http://110.40.253.20:5300/api/v1/verify" +
               this.verifyUrl +
               "/" +
               this.loginForm.verifyCode
